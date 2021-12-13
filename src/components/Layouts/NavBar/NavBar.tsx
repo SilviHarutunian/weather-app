@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import { RootStateType } from "../../../store/store";
-import { changeTempScale } from "../../../store/Home/action";
+import { homeActions } from "../../../store/Home/action";
 
 import { Styled } from "./styled";
 
@@ -15,7 +15,7 @@ export default function NavBar() {
   const dispatch = useDispatch();
 
   const handleChangeTempScale = (scale: string) => {
-    dispatch(changeTempScale(scale));
+    dispatch(homeActions.changeTempScale(scale));
   };
 
   return (

@@ -4,19 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import CITIES from "cities.json";
 
 import { RootStateType } from "../../store/store";
-import {
-  addNewLocationCity,
-  deleteCityFromList,
-} from "../../store/FavoriteCities/action";
+import { citiesActions } from "../../store/FavoriteCities/action";
 
 import { Styled } from "./styled";
 
 function FavoriteCities() {
   const dispatch = useDispatch();
 
-  const [newCity, setNewCity] = useState<string>("");
-  const [showCityError, setShowCityError] = useState<boolean>(false);
-  const [isDuplicated, setIsDuplicated] = useState<boolean>(false);
+  const [newCity, setNewCity] = useState("");
+  const [showCityError, setShowCityError] = useState(false);
+  const [isDuplicated, setIsDuplicated] = useState(false);
 
   const {
     reducerCities: { favoriteCities },
@@ -48,7 +45,7 @@ function FavoriteCities() {
     }
 
     if (newCity) {
-      dispatch(addNewLocationCity(newCity));
+      dispatch(citiesActions.addNewLocationCity(newCity));
       setNewCity("");
       localStorage.setItem(
         "favoriteCities",
@@ -62,7 +59,7 @@ function FavoriteCities() {
   };
 
   const handleDeleteCity = (event: SyntheticEvent, city: string) => {
-    dispatch(deleteCityFromList(city));
+    dispatch(citiesActions.deleteCityFromList(city));
 
     event.stopPropagation();
 

@@ -1,21 +1,11 @@
-import {
-  ADD_NEW_LOCATION_CITY,
-  DELETE_CITY,
-  ACTION_ADD_NEW_LOCATION_CITY,
-} from "./actionTypes";
+import { InferActionsTypes } from "../store";
 
-export function addNewLocationCity(
-  newCity: string
-): ACTION_ADD_NEW_LOCATION_CITY {
-  return {
-    type: ADD_NEW_LOCATION_CITY,
-    payload: { newCity },
-  };
-}
+export type FavoriteCitiesActionType = InferActionsTypes<typeof citiesActions>;
 
-export function deleteCityFromList(city: string) {
-  return {
-    type: DELETE_CITY,
-    payload: { city },
-  };
-}
+export const citiesActions = {
+  addNewLocationCity: (newCity: string) =>
+    ({ type: "ADD_NEW_LOCATION_CITY", payload: { newCity } } as const),
+
+  deleteCityFromList: (city: string) =>
+    ({ type: "DELETE_CITY", payload: { city } } as const),
+};

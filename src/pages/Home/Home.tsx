@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { setSelectedDate } from "../../store/Home/action";
+import { homeActions } from "../../store/Home/action";
 import { getLocation, getCityWeather } from "../../store/Home/thunks";
 import { RootStateType } from "../../store/store";
 import spinner from "../../assets/images/spinner.gif";
@@ -18,7 +18,7 @@ function Home() {
   } = useSelector((state: RootStateType) => state);
 
   const handleChangeWeatherDate = (day: Date) => {
-    dispatch(setSelectedDate(day));
+    dispatch(homeActions.setSelectedDate(day));
   };
 
   useEffect(() => {

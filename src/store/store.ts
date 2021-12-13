@@ -14,6 +14,15 @@ export type RootStateType = {
 
 const rootReducer = combineReducers({ reducerHome, reducerCities });
 
+type RootReducerType = typeof rootReducer;
+export type AppStateType = ReturnType<RootReducerType>;
+
+type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never;
+
+export type InferActionsTypes<
+  T extends { [key: string]: (...args: any[]) => any }
+> = ReturnType<PropertiesTypes<T>>;
+
 const middleware = composeWithDevTools(applyMiddleware(thunkMiddleware));
 const store = createStore(rootReducer, middleware);
 

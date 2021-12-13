@@ -1,25 +1,38 @@
-import { Dispatch } from "redux";
+import { ThunkAction, ThunkDispatch } from "redux-thunk";
+
 import { getWeatherDataByPosition, cityWeather } from "../../api/api";
-import { setLocationCity, setWeatherData } from "./action";
-import { addNewLocationCity } from "../FavoriteCities/action";
-import { HomeActionType } from "./actionTypes";
-import { FavoriteCitiesActionType } from "../FavoriteCities/actionTypes";
+import { homeActions } from "./action";
+import { citiesActions } from "../FavoriteCities/action";
+import { HomeActionType } from "./action";
+import { FavoriteCitiesActionType } from "../FavoriteCities/action";
+import { AppStateType } from "../store";
 
 export const getLocation =
-  () =>
-  async (dispatch: Dispatch<HomeActionType | FavoriteCitiesActionType>) => {
+  (): ThunkAction<
+    Promise<void>,
+    AppStateType,
+    unknown,
+    HomeActionType | FavoriteCitiesActionType
+  > =>
+  async (dispatch) => {
     const weatherData = await getWeatherDataByPosition();
 
-    localStorage.setItem("locationCity", weatherData.name);
-    dispatch(setLocationCity(weatherData.name));
+    localStorage.setItem("locationCity", weatherData.data.name);
+    dispatch(homeActions.setLocationCity(weatherData.data.name));
 
-    dispatch(addNewLocationCity(weatherData.name));
-    localStorage.setItem("favoriteCities", JSON.stringify([weatherData.name]));
+    dispatch(citiesActions.addNewLocationCity(weatherData.data.name));
+    localStorage.setItem(
+      "favoriteCities",
+      JSON.stringify([weatherData.data.name])
+    );
   };
 
 export const getCityWeather =
-  (locationCity: string) => async (dispatch: any) => {
-    dispatch(setWeatherData());
+  (
+    locationCity: string
+  ): ThunkAction<Promise<void>, AppStateType, unknown, HomeActionType> =>
+  async (dispatch) => {
+    dispatch(homeActions.setWeatherData());
     const cityWeatherGetData = await cityWeather(locationCity);
-    dispatch(setWeatherData(cityWeatherGetData));
+    dispatch(homeActions.setWeatherData(cityWeatherGetData.data));
   };

@@ -1,8 +1,4 @@
-import {
-  ADD_NEW_LOCATION_CITY,
-  DELETE_CITY,
-  FavoriteCitiesActionType,
-} from "./actionTypes";
+import { FavoriteCitiesActionType } from "./action";
 
 const initialState = {
   newCity: "",
@@ -14,12 +10,12 @@ const reducerCities = (
   action: FavoriteCitiesActionType
 ) => {
   switch (action.type) {
-    case ADD_NEW_LOCATION_CITY:
+    case "ADD_NEW_LOCATION_CITY":
       return {
         ...state,
         favoriteCities: [...state.favoriteCities, action.payload.newCity],
       };
-    case DELETE_CITY:
+    case "DELETE_CITY":
       return {
         ...state,
         favoriteCities: [

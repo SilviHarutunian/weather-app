@@ -1,10 +1,4 @@
-import {
-  CHANGE_TEMP_SCALE,
-  SET_LOCATION_CITY,
-  SET_WEATHER_DATA,
-  SET_SELECTED_DATE,
-  HomeActionType,
-} from "./actionTypes";
+import { HomeActionType } from "./action";
 
 const initialState = {
   selectedScale: "celsius",
@@ -15,22 +9,22 @@ const initialState = {
 
 const reducerHome = (state = initialState, action: HomeActionType) => {
   switch (action.type) {
-    case CHANGE_TEMP_SCALE:
+    case "CHANGE_TEMP_SCALE":
       return {
         ...state,
         selectedScale: action.payload.selectedScale,
       };
-    case SET_LOCATION_CITY:
+    case "SET_LOCATION_CITY":
       return {
         ...state,
         locationCity: action.payload.locationCity,
       };
-    case SET_WEATHER_DATA:
+    case "SET_WEATHER_DATA":
       return {
         ...state,
         cityWeather: action.payload.cityData,
       };
-    case SET_SELECTED_DATE:
+    case "SET_SELECTED_DATE":
       return {
         ...state,
         selectedDate: action.payload.selectedDate,
